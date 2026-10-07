@@ -17,7 +17,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from "@react-native-community/netinfo";
 import { launchCamera, MediaType } from "react-native-image-picker";
 import RNFS from "react-native-fs";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 type Status = "pending" | "syncing" | "synced" | "error";
 type Kind = "photo" | "video";
@@ -171,7 +171,8 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={s.container}>
+    <SafeAreaProvider>
+    <SafeAreaView style={s.container} edges={["top", "bottom"]}>
       <FlatList
         contentContainerStyle={s.content}
         data={records}
@@ -266,6 +267,7 @@ export default function App() {
         ListEmptyComponent={<Text style={s.empty}>No records yet.</Text>}
       />
     </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
